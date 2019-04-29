@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>Simple FX: Smoke</name>
+	<author>Owlchemist</author>
+	<supportedVersions>
+		<li>1.0</li>
+	</supportedVersions>
+	<description>
+		A graphical mod which adds smoke particle emitters to various buildings, such as the campfire and stoves.
+	</description>
+</ModMetaData>
