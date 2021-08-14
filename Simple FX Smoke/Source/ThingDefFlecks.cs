@@ -2,7 +2,7 @@ using RimWorld;
 using Verse;
 using UnityEngine;
 
-namespace Smoker
+namespace Flecker
 {
 	public static class ThingDefFlecks
 	{

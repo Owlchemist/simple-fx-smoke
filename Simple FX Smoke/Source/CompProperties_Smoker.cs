@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Verse;
 
-namespace Smoker
+namespace Flecker
 {
 	public class CompProperties_Smoker : CompProperties
 	{

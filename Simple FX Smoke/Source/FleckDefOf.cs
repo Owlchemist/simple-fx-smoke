@@ -2,7 +2,7 @@ using System;
 using Verse;
 using RimWorld;
 
-namespace Smoker
+namespace Flecker
 {
 	[DefOf]
 	public static class FleckDefOf

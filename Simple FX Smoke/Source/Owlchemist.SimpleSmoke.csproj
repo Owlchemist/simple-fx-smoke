@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{83B4FCD2-B442-4ED9-BCC5-293CE0EEC1F8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Smoker</RootNamespace>
-    <AssemblyName>Smoker</AssemblyName>
+    <RootNamespace>Flecker</RootNamespace>
+    <AssemblyName>Flecker</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseMSBuildEngine>false</UseMSBuildEngine>
     <ReleaseVersion>1.3.0</ReleaseVersion>
