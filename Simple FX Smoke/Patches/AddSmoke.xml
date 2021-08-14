@@ -52,4 +52,22 @@
 			</li>
 		</value>
 	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="ElectricCrematorium"]/comps</xpath>
+		<value>
+			<li Class="Smoker.CompProperties_Smoker">
+				<billsOnly>true</billsOnly>
+				<particleSize>1</particleSize>
+			</li>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="BiofuelRefinery"]/comps</xpath>
+		<value>
+			<li Class="Smoker.CompProperties_Smoker">
+				<particleType>heavy</particleType>
+				<billsOnly>true</billsOnly>
+			</li>
+		</value>
+	</Operation>
 </Patch>

@@ -2,10 +2,11 @@
 <ModMetaData>
 	<name>Simple FX: Smoke</name>
 	<author>Owlchemist</author>
+	<packageId>Owlchemist.SimpleFX.Smoke2</packageId>
 	<supportedVersions>
-		<li>1.0</li>
+		<li>1.3</li>
 	</supportedVersions>
 	<description>
-		A graphical mod which adds smoke particle emitters to various buildings, such as the campfire and stoves.
+		A graphical mod which adds smoke particle emitters to various buildings, such as the campfire and stoves. This is a version 2 of the old version, which is being left on the workshop to avoid breaking any mods that depends on it.
 	</description>
 </ModMetaData>

@@ -48,7 +48,8 @@
   <ItemGroup>
     <Compile Include="CompProperties_Smoker.cs" />
     <Compile Include="CompSmoker.cs" />
-    <Compile Include="ThingdefMotes.cs" />
+    <Compile Include="ThingDefFlecks.cs" />
+    <Compile Include="FleckDefOf.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

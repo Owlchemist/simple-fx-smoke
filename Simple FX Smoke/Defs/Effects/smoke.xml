@@ -1,40 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-	<ThingDef Name="SmokerBase" ParentName="MoteBase" Abstract="True">
+	<FleckDef Name="SmokerBase" ParentName="FleckBase_Thrown" Abstract="True">
+		<graphicData>
+			<renderInstanced>true</renderInstanced>
+		</graphicData>
+		<fadeInTime>0.25</fadeInTime>
+		<growthRate>0.01</growthRate>
+		<altitudeLayer>MoteOverhead</altitudeLayer>
+	</FleckDef>
+	
+	<FleckDef ParentName="SmokerBase">
+		<defName>Fleck_Smoker_Vapor</defName>
 		<graphicData>
 			<texPath>Things/Mote/Smoke</texPath>
 		</graphicData>
-		<altitudeLayer>MoteOverhead</altitudeLayer>
-		<mote>
-			<fadeInTime>0.25</fadeInTime>
-			<growthRate>0.01</growthRate>
-		</mote>
-	</ThingDef>
+		<solidTime>1</solidTime>
+		<fadeOutTime>1.25</fadeOutTime>
+	</FleckDef>
 	
-	<ThingDef ParentName="SmokerBase">
-		<defName>Mote_Smoker_White</defName>
-		<mote>
-			<solidTime>3</solidTime>
-			<fadeOutTime>3.75</fadeOutTime>
-		</mote>
-	</ThingDef>
-	
-	<ThingDef ParentName="SmokerBase">
-		<defName>Mote_Smoker_Vapor</defName>
-		<mote>
-			<solidTime>1</solidTime>
-			<fadeOutTime>1.25</fadeOutTime>
-		</mote>
-	</ThingDef>
-	
-	<ThingDef ParentName="SmokerBase">
-		<defName>Mote_Smoker_Heavy</defName>
+	<FleckDef ParentName="SmokerBase">
+		<defName>Fleck_Smoker_Heavy</defName>
 		<graphicData>
 			<texPath>Things/Mote/Heavy</texPath>
 		</graphicData>
-		<mote>
-			<solidTime>4</solidTime>
-			<fadeOutTime>4.75</fadeOutTime>
-		</mote>
-	</ThingDef>
+		<solidTime>4</solidTime>
+		<fadeOutTime>4.75</fadeOutTime>
+	</FleckDef>
 </Defs>
