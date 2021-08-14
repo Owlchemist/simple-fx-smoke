@@ -2,7 +2,7 @@
 <Patch>
 	<Operation Class="PatchOperationAdd">
 		<success>Always</success>
-		<xpath>Defs/ThingDef[comps/li/@Class="Smoker.CompProperties_Smoker"][not(tickerType)]</xpath>
+		<xpath>Defs/ThingDef[comps/li/@Class="Flecker.CompProperties_Smoker"][not(tickerType)]</xpath>
 		<value>
 			<tickerType>Normal</tickerType>
 		</value>

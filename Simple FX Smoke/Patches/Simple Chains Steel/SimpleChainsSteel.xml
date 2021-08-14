@@ -10,7 +10,7 @@
 				<li Class="PatchOperationAdd">
 					<xpath>Defs/ThingDef[defName="Owl_Bloomery"]/comps</xpath>
 					<value>
-						<li Class="Smoker.CompProperties_Smoker">
+						<li Class="Flecker.CompProperties_Smoker">
 							<particleType>heavy</particleType>
 							<billsOnly>true</billsOnly>
 							<particleOffset>(0,0,0.5)</particleOffset>

@@ -56,7 +56,7 @@ namespace Flecker
 
 		private void Smoke()
 		{
-			ThrowFleck(this.parent.DrawPos + this.Props.particleOffset, this.parent.RotatedSize.Magnitude / 4f * this.Props.particleSize, this.parent.Map, this.Props.particleDelay, this.Props.particleType);
+			ThrowFleck(this.parent.DrawPos + this.Props.particleOffset, this.parent.RotatedSize.Magnitude / 4f * this.Props.particleSize, this.parent.Map, this.Props.particleType);
 		}
 
 		public override void Initialize(CompProperties props)
@@ -65,9 +65,9 @@ namespace Flecker
 			this.flickComp = this.parent.GetComp<CompFlickable>();
 		}
 
-		public static void ThrowFleck(Vector3 loc, float size, Map map, float smokeSpeedDelay, string particleType)
+		public static void ThrowFleck(Vector3 loc, float size, Map map, string particleType)
 		{
-			if ((float)Find.TickManager.TicksGame % smokeSpeedDelay == 0f)
+			if (Find.TickManager.TicksGame % 30 == 0)
 			{
 				
 				if (particleType == "white")

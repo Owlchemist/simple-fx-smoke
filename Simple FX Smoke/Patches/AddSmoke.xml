@@ -3,7 +3,7 @@
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="Campfire"]/comps</xpath>
 		<value>
-			<li Class="Smoker.CompProperties_Smoker">
+			<li Class="Flecker.CompProperties_Smoker">
 				<particleSize>1.5</particleSize>
 			</li>
 		</value>
@@ -11,7 +11,7 @@
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="WoodFiredGenerator"]/comps</xpath>
 		<value>
-			<li Class="Smoker.CompProperties_Smoker">
+			<li Class="Flecker.CompProperties_Smoker">
 				<particleType>heavy</particleType>
 				<particleOffset>(-0.5,0,-0.5)</particleOffset>
 			</li>
@@ -20,7 +20,7 @@
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="ChemfuelPoweredGenerator"]/comps</xpath>
 		<value>
-			<li Class="Smoker.CompProperties_Smoker">
+			<li Class="Flecker.CompProperties_Smoker">
 				<particleOffset>(-0.5,0,-0.5)</particleOffset>
 			</li>
 		</value>
@@ -28,7 +28,7 @@
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="ElectricStove" or defName="FueledStove"]/comps</xpath>
 		<value>
-			<li Class="Smoker.CompProperties_Smoker">
+			<li Class="Flecker.CompProperties_Smoker">
 				<particleType>vapor</particleType>
 				<billsOnly>true</billsOnly>
 				<particleSize>0.66</particleSize>
@@ -38,7 +38,7 @@
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="TorchLamp"]/comps</xpath>
 		<value>
-			<li Class="Smoker.CompProperties_Smoker">
+			<li Class="Flecker.CompProperties_Smoker">
 				<particleType>vapor</particleType>
 				<particleSize>0.4</particleSize>
 			</li>
@@ -47,7 +47,7 @@
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="ElectricSmelter"]/comps</xpath>
 		<value>
-			<li Class="Smoker.CompProperties_Smoker">
+			<li Class="Flecker.CompProperties_Smoker">
 				<billsOnly>true</billsOnly>
 			</li>
 		</value>
@@ -55,7 +55,7 @@
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="ElectricCrematorium"]/comps</xpath>
 		<value>
-			<li Class="Smoker.CompProperties_Smoker">
+			<li Class="Flecker.CompProperties_Smoker">
 				<billsOnly>true</billsOnly>
 				<particleSize>1</particleSize>
 			</li>
@@ -64,7 +64,7 @@
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="BiofuelRefinery"]/comps</xpath>
 		<value>
-			<li Class="Smoker.CompProperties_Smoker">
+			<li Class="Flecker.CompProperties_Smoker">
 				<particleType>heavy</particleType>
 				<billsOnly>true</billsOnly>
 			</li>

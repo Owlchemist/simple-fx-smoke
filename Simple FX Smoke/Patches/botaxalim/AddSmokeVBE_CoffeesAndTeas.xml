@@ -2,15 +2,18 @@
 <Patch>
 	<Operation Class="PatchOperationFindMod">
 		<mods>
-            <li>Royalty</li>
+            <li>Vanilla Brewing Expanded - Coffees and Teas</li>
         </mods>
 		<match Class="PatchOperationSequence">
+			<success>Always</success>
             <operations>
 			<li Class="PatchOperationAdd">
-                    <xpath>Defs/ThingDef[defName="Brazier"]/comps</xpath>
+                    <xpath>/Defs/ThingDef[defName="VBE_EspressoMachineBuilding"]/comps</xpath>
                     <value>
                         <li Class="Flecker.CompProperties_Smoker">
-							<particleSize>1.5</particleSize>
+							<particleType>vapor</particleType>
+							<billsOnly>true</billsOnly>
+							<particleSize>0.33</particleSize>
 						</li>
                     </value>
             </li>

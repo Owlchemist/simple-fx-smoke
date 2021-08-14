@@ -24,8 +24,6 @@ namespace Flecker
 
 		public float particleSize = 1f;
 
-		public float particleDelay = 30f;
-
 		public string particleType = "white";
 
 		public bool billsOnly;

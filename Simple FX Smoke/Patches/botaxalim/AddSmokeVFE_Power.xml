@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+            <li>Vanilla Furniture Expanded - Power</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+            <operations>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VFE_PortableWoodFiredGenerator"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<particleType>heavy</particleType>
+							<particleOffset>(-0.5,0,-0.5)</particleOffset>						
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VFE_PortableChemfuelPoweredGenerator"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<particleOffset>(-0.5,0,-0.5)</particleOffset>						
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VPE_GasSmelter"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<billsOnly>true</billsOnly>						
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VPE_HelixienGenerator"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<particleOffset>(-0.5,0,-0.5)</particleOffset>						
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VPE_GasStove"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<particleType>vapor</particleType>
+							<billsOnly>true</billsOnly>
+							<particleSize>0.66</particleSize>						
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VPE_IndustrialHelixienGenerator"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<particleOffset>(-0.5,0,-0.5)</particleOffset>					
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VFE_IndustrialChemfuelPoweredGenerator"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<particleOffset>(-0.5,0,-0.5)</particleOffset>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VFE_IndustrialWoodFiredGenerator"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<particleType>heavy</particleType>
+							<particleOffset>(-0.5,0,-0.5)</particleOffset>						
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VPE_NuclearGenerator"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<particleOffset>(-0.5,0,-0.5)</particleOffset>						
+						</li>
+					</value>
+				</li>			
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VPE_GasBiofuelRefinery"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<particleType>heavy</particleType>
+							<billsOnly>true</billsOnly>
+							<particleSize>1</particleSize>
+						</li>						
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VPE_GasCrematorium"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<billsOnly>true</billsOnly>
+							<particleSize>1</particleSize>
+						</li>						
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>

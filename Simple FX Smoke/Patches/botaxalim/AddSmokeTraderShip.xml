@@ -2,15 +2,17 @@
 <Patch>
 	<Operation Class="PatchOperationFindMod">
 		<mods>
-            <li>Royalty</li>
+            <li>Trader ships</li>
         </mods>
 		<match Class="PatchOperationSequence">
+			<success>Always</success>
             <operations>
 			<li Class="PatchOperationAdd">
-                    <xpath>Defs/ThingDef[defName="Brazier"]/comps</xpath>
+                    <xpath>/Defs/ThingDef[defName="turbine_6"]/comps</xpath>
                     <value>
                         <li Class="Flecker.CompProperties_Smoker">
-							<particleSize>1.5</particleSize>
+							<particleType>vapor</particleType>
+							<particleOffset>(-0.5,0,0)</particleOffset>
 						</li>
                     </value>
             </li>

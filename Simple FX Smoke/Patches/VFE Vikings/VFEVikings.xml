@@ -10,7 +10,7 @@
 				<li Class="PatchOperationAdd">
                     <xpath>/Defs/ThingDef[defName="VFEV_Hearth"]/comps</xpath>
                     <value>
-                        <li Class="Smoker.CompProperties_Smoker">
+                        <li Class="Flecker.CompProperties_Smoker">
 							<particleSize>1.5</particleSize>
 						</li>
 					</value>
@@ -18,7 +18,7 @@
 				<li Class="PatchOperationAdd">
                     <xpath>/Defs/ThingDef[defName="VFEV_FuneralPyre"]/comps</xpath>
                     <value>
-                        <li Class="Smoker.CompProperties_Smoker">
+                        <li Class="Flecker.CompProperties_Smoker">
 							<particleSize>1.5</particleSize>
 						</li>
 					</value>

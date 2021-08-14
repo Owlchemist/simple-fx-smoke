@@ -2,12 +2,13 @@
 <Patch>
 	<Operation Class="PatchOperationFindMod">
 		<mods>
-            <li>Royalty</li>
+            <li>Vanilla Furniture Expanded</li>
         </mods>
 		<match Class="PatchOperationSequence">
+			<success>Always</success>
             <operations>
 			<li Class="PatchOperationAdd">
-                    <xpath>Defs/ThingDef[defName="Brazier"]/comps</xpath>
+                    <xpath>/Defs/ThingDef[defName="Stone_Campfire"]/comps</xpath>
                     <value>
                         <li Class="Flecker.CompProperties_Smoker">
 							<particleSize>1.5</particleSize>

@@ -10,7 +10,7 @@
 				<li Class="PatchOperationAdd">
                     <xpath>/Defs/ThingDef[defName="ChemBoiler"]/comps</xpath>
                     <value>
-                        <li Class="Smoker.CompProperties_Smoker">
+                        <li Class="Flecker.CompProperties_Smoker">
 							<particleType>vapor</particleType>							
 							<particleSize>0.25</particleSize>
 							<particleOffset>(0.25,0,0)</particleOffset>	
