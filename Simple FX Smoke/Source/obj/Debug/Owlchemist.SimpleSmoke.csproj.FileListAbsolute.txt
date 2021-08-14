@@ -1,0 +1,6 @@
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Source\obj\Debug\Owlchemist.SimpleSmoke.csproj.AssemblyReference.cache
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Source\obj\Debug\Owlchemist.SimpleSmoke.csproj.CoreCompileInputs.cache
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Assemblies\Smoker.dll
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Assemblies\Smoker.pdb
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Source\obj\Debug\Smoker.dll
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Source\obj\Debug\Smoker.pdb
