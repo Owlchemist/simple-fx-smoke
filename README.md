@@ -1,4 +1,4 @@
 # simple-fx-smoke
 Simple FX: Smoke
 
-https://steamcommunity.com/sharedfiles/filedetails/?id=1722840082
+https://steamcommunity.com/sharedfiles/filedetails/?id=2574489704
