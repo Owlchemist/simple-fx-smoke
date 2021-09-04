@@ -5,26 +5,9 @@ using UnityEngine;
 
 namespace Flecker
 {
-	public class CompSmoker : ThingComp
+	public class CompFlecker : ThingComp
 	{
-		public CompSmoker()
-		{
-		}
-
-		public override void CompTick()
-		{
-			if (this.Props.alwaysSmoke || (this.Props.billsOnly && this.InUse))
-			{
-				this.Smoke();
-				return;
-			}
-			if (this.fuelComp != null && this.fuelComp.HasFuel && !this.Props.billsOnly && (this.flickComp == null || this.flickComp.SwitchIsOn))
-			{
-				this.Smoke();
-			}
-		}
-
-		static CompSmoker()
+		public CompFlecker()
 		{
 		}
 
@@ -39,6 +22,14 @@ namespace Flecker
 		public override void PostSpawnSetup(bool respawningAfterLoad)
 		{
 			this.fuelComp = this.parent.TryGetComp<CompRefuelable>();
+			this.Props.cachedParticleSize = this.parent.RotatedSize.Magnitude / 4f * this.Props.particleSize;
+			this.Props.cachedParticleOffset = this.parent.DrawPos + this.Props.particleOffset;
+			this.parent.Map.GetComponent<MapComponent_FleckerRegistry>().fleckerRegistry.Add(this);
+		}
+
+		public override void PostDeSpawn(Map map)
+		{
+			map.GetComponent<MapComponent_FleckerRegistry>().fleckerRegistry.Remove(this);
 		}
 
 		public bool InUse
@@ -54,39 +45,21 @@ namespace Flecker
 			}
 		}
 
-		private void Smoke()
-		{
-			ThrowFleck(this.parent.DrawPos + this.Props.particleOffset, this.parent.RotatedSize.Magnitude / 4f * this.Props.particleSize, this.parent.Map, this.Props.particleType);
-		}
-
 		public override void Initialize(CompProperties props)
 		{
 			base.Initialize(props);
 			this.flickComp = this.parent.GetComp<CompFlickable>();
 		}
 
-		public static void ThrowFleck(Vector3 loc, float size, Map map, string particleType)
+		public void ThrowFleck()
 		{
-			if (Find.TickManager.TicksGame % 30 == 0)
-			{
-				
-				if (particleType == "white")
-				{
-					ThingDefFlecks.ThrowVariableFleck(loc, map, size, RimWorld.FleckDefOf.Smoke);
-				}
-				else if (particleType == "vapor")
-				{
-					ThingDefFlecks.ThrowVariableFleck(loc, map, size, FleckDefOf.Fleck_Smoker_Vapor);
-				}
-				else if (particleType == "heavy")
-				{
-					ThingDefFlecks.ThrowVariableFleck(loc, map, size, FleckDefOf.Fleck_Smoker_Heavy);
-				}
-			}
+			if (this.Props.particleType == "white") ThingDefFlecks.ThrowVariableFleck(this.Props.cachedParticleOffset, this.parent.Map, this.Props.cachedParticleSize, RimWorld.FleckDefOf.Smoke);
+			else if (this.Props.particleType == "vapor") ThingDefFlecks.ThrowVariableFleck(this.Props.cachedParticleOffset, this.parent.Map, this.Props.cachedParticleSize, FleckDefOf.Fleck_Smoker_Vapor);
+			else if (this.Props.particleType == "heavy") ThingDefFlecks.ThrowVariableFleck(this.Props.cachedParticleOffset, this.parent.Map, this.Props.cachedParticleSize, FleckDefOf.Fleck_Smoker_Heavy);
 		}
 
-		private CompRefuelable fuelComp;
+		public CompRefuelable fuelComp;
 
-		private CompFlickable flickComp;
+		public CompFlickable flickComp;
 	}
 }

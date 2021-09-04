@@ -8,7 +8,7 @@ namespace Flecker
 	{
 		public CompProperties_Smoker()
 		{
-			this.compClass = typeof(CompSmoker);
+			this.compClass = typeof(CompFlecker);
 		}
 
 		public override void ResolveReferences(ThingDef parentDef)
@@ -21,8 +21,10 @@ namespace Flecker
 		}
 
 		public Vector3 particleOffset = Vector3.zero;
+		public Vector3 cachedParticleOffset = Vector3.zero;
 
 		public float particleSize = 1f;
+		public float cachedParticleSize = 1f;
 
 		public string particleType = "white";
 
