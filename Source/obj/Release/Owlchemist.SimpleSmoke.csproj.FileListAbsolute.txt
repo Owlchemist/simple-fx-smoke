@@ -1,0 +1,8 @@
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Assemblies\Flecker.dll
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Source\obj\Release\Owlchemist.SimpleSmoke.csproj.AssemblyReference.cache
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Source\obj\Release\Owlchemist.SimpleSmoke.csproj.CoreCompileInputs.cache
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Source\obj\Release\Flecker.dll
+C:\Games\Steam\steamapps\common\RimWorld\Mods\Simple FX Smoke\Assemblies\Flecker.dll
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Source\obj\Release\Owlchemist.SimpleSmoke.csproj.AssemblyReference.cache
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Source\obj\Release\Owlchemist.SimpleSmoke.csproj.CoreCompileInputs.cache
+C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Source\obj\Release\Flecker.dll

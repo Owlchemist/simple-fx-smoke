@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Verse;
 
@@ -14,22 +13,14 @@ namespace Flecker
 		public override void ResolveReferences(ThingDef parentDef)
 		{
 			base.ResolveReferences(parentDef);
-		}
-
-		static CompProperties_Smoker()
-		{
+			if (fleckDef == null) fleckDef = RimWorld.FleckDefOf.Smoke;
 		}
 
 		public Vector3 particleOffset = Vector3.zero;
-		public Vector3 cachedParticleOffset = Vector3.zero;
-
 		public float particleSize = 1f;
-		public float cachedParticleSize = 1f;
-
-		public string particleType = "white";
-
+		public FleckDef fleckDef;
+		public FleckDef indoorAlt;
 		public bool billsOnly;
-
 		public bool alwaysSmoke;
 	}
 }
