@@ -9,4 +9,14 @@
 	<description>
 		A graphical mod which adds smoke particle emitters to various buildings, such as the campfire and stoves. This is a version 2 of the old version, which is being left on the workshop to avoid breaking any mods that depends on it.
 	</description>
+	<loadAfter>
+		<li>VanillaExpanded.VBrewECandT</li>
+		<li>VanillaExpanded.VFEProduction</li>
+		<li>VanillaExpanded.VFEPower</li>
+		<li>VanillaExpanded.VFECore</li>
+		<li>OskarPotocki.VanillaFactionsExpanded.SettlersModule</li>
+		<li>OskarPotocki.VFE.Vikings</li>
+		<li>automatic.traderships</li>
+		<li>VanillaExpanded.VCookE</li>
+	</loadAfter>
 </ModMetaData>

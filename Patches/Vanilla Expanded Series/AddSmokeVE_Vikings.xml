@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+            <li>Vanilla Factions Expanded - Vikings</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+            <operations>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VFEV_Hearth"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<particleSize>1.5</particleSize>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VFEV_FuneralPyre"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<particleSize>1.5</particleSize>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>
