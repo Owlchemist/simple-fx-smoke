@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+            <li>Vanilla Factions Expanded - Medieval</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+            <operations>
+				<li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="VFEM_MeatSmoker"]/comps</xpath>
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+							<fleckDef>Owl_Vapor</fleckDef>
+							<particleSize>0.4</particleSize>
+							<particleOffset>(0,0,0.5)</particleOffset>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>

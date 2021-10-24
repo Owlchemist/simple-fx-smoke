@@ -4,3 +4,9 @@ C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX S
 C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Assemblies\Flecker.pdb
 C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Source\obj\Debug\Flecker.dll
 C:\Games\Steam\steamapps\common\RimWorld\Development\simple-fx-smoke\Simple FX Smoke\Source\obj\Debug\Flecker.pdb
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\simple-fx-smoke\Assemblies\Flecker.dll
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\simple-fx-smoke\Assemblies\Flecker.pdb
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\simple-fx-smoke\Source\obj\Debug\Owlchemist.SimpleSmoke.csproj.AssemblyReference.cache
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\simple-fx-smoke\Source\obj\Debug\Owlchemist.SimpleSmoke.csproj.CoreCompileInputs.cache
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\simple-fx-smoke\Source\obj\Debug\Flecker.dll
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\simple-fx-smoke\Source\obj\Debug\Flecker.pdb
