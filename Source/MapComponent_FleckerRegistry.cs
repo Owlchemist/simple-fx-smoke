@@ -1,5 +1,6 @@
 using Verse;
 using System.Collections.Generic;
+using RimWorld;
 
 namespace Flecker
 {
@@ -10,13 +11,23 @@ namespace Flecker
         private int numberOfFleckers;
         int ticker;
         int tickerLong;
+        float currentWindDirection;
+        float mapWindSpeed;
         public MapComponent_FleckerRegistry(Map map) : base(map)
         {
             this.compCache = new List<CompFlecker>();
+            currentWindDirection = Rand.Range(0, 360f);
+            mapWindSpeed = map.windManager.WindSpeed;
         }
 
         public override void MapComponentTick()
         {
+            //Update the wind direction and speed slightly every 1000 ticks, slightly more positive
+            if (GenTicks.TicksGame.ToString().EndsWith("000")) {
+                currentWindDirection = GenMath.PositiveMod(currentWindDirection + Rand.Range(-10, 20), 360f);
+                mapWindSpeed = map.windManager.WindSpeed;
+            }
+
             if (ticker++ == 35)
             {
                 if (Find.CurrentMap != map) return;
@@ -25,7 +36,8 @@ namespace Flecker
                 numberOfFleckers = compCache.Count;
 
                 //Recycled rands
-                float angle = Rand.Range(30, 40);;
+                float indoorAngle = Rand.Range(30, 40);
+                float outdoorAngle = GenMath.PositiveMod(Rand.Range(-10, 10) + currentWindDirection, 360f);
                 float rate = Rand.Range(-30, 30);
 
                 for (int i = 0; i < numberOfFleckers; i++)
@@ -39,11 +51,48 @@ namespace Flecker
                         tickerLong = 0;
                     }
 
-                    if (((comp.fuelComp != null && comp.fuelComp.HasFuel && !comp.Props.billsOnly && (comp.flickComp == null || comp.flickComp.SwitchIsOn)) || comp.Props.alwaysSmoke || (comp.Props.billsOnly && comp.InUse)) && 
-                    comp.cachedParticleOffset.ShouldSpawnMotesAt(map))
+                    //Fuelable but has no fuel or flickable but turned off
+                    if(!comp.Props.alwaysSmoke && (comp.fuelComp != null && !comp.fuelComp.HasFuel || comp.flickComp != null && !comp.flickComp.SwitchIsOn))
                     {
-                        comp.ThrowFleck(angle, rate);
+                        continue;
                     }
+
+                    //Bills only but not in use and no idle-smoke
+                    if(comp.Props.billsOnly && !comp.InUse && comp.Props.idleAlt == null)
+                    {
+                        continue;
+                    }
+
+                    //Not spawnable motes
+                    if(!comp.cachedParticleOffset.ShouldSpawnMotesAt(map))
+                    {
+                        continue;
+                    }
+
+                    //Get the base fleckDef and angle
+                    var fleckDef = comp.Props.fleckDef;
+                    var currentAngle = outdoorAngle;
+                    var currentSpeed = mapWindSpeed;
+
+                    //Indoor
+                    if (comp.isRoofed)
+                    {
+                        currentAngle = indoorAngle;
+                        currentSpeed = 0.5f;
+                        //Alternative smoke
+                        if (comp.Props.indoorAlt != null)
+                        {
+                            fleckDef = comp.Props.indoorAlt;
+                        }
+                    }
+
+                    //Idle alternative
+                    if (comp.Props.idleAlt != null && comp.Props.billsOnly && !comp.InUse)
+                    {
+                        fleckDef = comp.Props.idleAlt;
+                    }
+
+                    comp.ThrowFleck(currentAngle, rate, currentSpeed, fleckDef);
                 }
                 ticker = 0;
             }
