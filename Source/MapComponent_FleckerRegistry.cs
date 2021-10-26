@@ -22,8 +22,8 @@ namespace Flecker
 
         public override void MapComponentTick()
         {
-            //Update the wind direction and speed slightly every 1000 ticks, slightly more positive
-            if (GenTicks.TicksGame.ToString().EndsWith("000")) {
+            //Update the wind direction and speed every 1000 ticks, slightly more positive rand to let it do full rotations over time
+            if (GenTicks.TicksGame.ToString().EndsWith("000") && Find.CurrentMap == map) {
                 currentWindDirection = GenMath.PositiveMod(currentWindDirection + Rand.Range(-10, 20), 360f);
                 mapWindSpeed = map.windManager.WindSpeed;
             }
@@ -79,14 +79,14 @@ namespace Flecker
                     {
                         currentAngle = indoorAngle;
                         currentSpeed = 0.5f;
-                        //Alternative smoke
+                        //Indoor smoke
                         if (comp.Props.indoorAlt != null)
                         {
                             fleckDef = comp.Props.indoorAlt;
                         }
                     }
 
-                    //Idle alternative
+                    //Idle smoke
                     if (comp.Props.idleAlt != null && comp.Props.billsOnly && !comp.InUse)
                     {
                         fleckDef = comp.Props.idleAlt;
