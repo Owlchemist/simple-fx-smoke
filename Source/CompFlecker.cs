@@ -22,7 +22,23 @@ namespace Flecker
 			fuelComp = parent.TryGetComp<CompRefuelable>();
 			cachedParticleSizeMin = 1.5f * (parent.RotatedSize.Magnitude / 4f * Props.particleSize);
 			cachedParticleSizeMax = 2.5f * (parent.RotatedSize.Magnitude / 4f * Props.particleSize);
-			cachedParticleOffset = parent.DrawPos + Props.particleOffset;
+			var offset = Props.particleOffset;
+            switch (parent.Rotation.AsInt)
+            {
+                case 0:
+                    offset += Props.particleOffsetNorth;
+                    break;
+                case 1:
+                    offset += Props.particleOffsetEast;
+                    break;
+                case 2:
+                    offset += Props.particleOffsetSouth;
+                    break;
+                case 3:
+                    offset += Props.particleOffsetWest;
+                    break;
+            }
+			cachedParticleOffset = parent.DrawPos + offset;
 
 			//Add to registry
 			parent.Map.GetComponent<MapComponent_FleckerRegistry>().compCache.Add(this);
@@ -54,13 +70,13 @@ namespace Flecker
 			flickComp = parent.GetComp<CompFlickable>();
 		}
 
-		public void ThrowFleck(float angle, float rate)
+		public void ThrowFleck(float angle, float rate, float speed, FleckDef def)
 		{
-			FleckDef def = (Props.indoorAlt != null && isRoofed) ? Props.indoorAlt : Props.fleckDef;
 			FleckCreationData dataStatic = FleckMaker.GetDataStatic(cachedParticleOffset, parent.Map, def, Rand.Range(cachedParticleSizeMin, cachedParticleSizeMax));
 			dataStatic.rotationRate = rate;
 			dataStatic.velocityAngle = angle;
-			dataStatic.velocitySpeed = Rand.Range(50, 70) / 100f;
+			//dataStatic.velocitySpeed = Rand.Range(50, 70) / 100f;
+			dataStatic.velocitySpeed = Rand.Range(0, 0.2f) + speed;
 			this.parent.Map.flecks.CreateFleck(dataStatic);
 		}
 

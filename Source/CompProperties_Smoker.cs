@@ -17,9 +17,14 @@ namespace Flecker
 		}
 
 		public Vector3 particleOffset = Vector3.zero;
+        public Vector3 particleOffsetEast = Vector3.zero;
+        public Vector3 particleOffsetNorth = Vector3.zero;
+        public Vector3 particleOffsetSouth = Vector3.zero;
+        public Vector3 particleOffsetWest = Vector3.zero;
 		public float particleSize = 1f;
 		public FleckDef fleckDef;
 		public FleckDef indoorAlt;
+        public FleckDef idleAlt;
 		public bool billsOnly;
 		public bool alwaysSmoke;
 	}
