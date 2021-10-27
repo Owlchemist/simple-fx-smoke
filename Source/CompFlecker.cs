@@ -1,8 +1,6 @@
-using System;
 using RimWorld;
 using Verse;
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace Flecker
 {
@@ -70,12 +68,11 @@ namespace Flecker
 			flickComp = parent.GetComp<CompFlickable>();
 		}
 
-		public void ThrowFleck(float angle, float rate, float speed, FleckDef def)
+		public void ThrowFleck(float angle, float rotationRate, float speed, FleckDef def)
 		{
 			FleckCreationData dataStatic = FleckMaker.GetDataStatic(cachedParticleOffset, parent.Map, def, Rand.Range(cachedParticleSizeMin, cachedParticleSizeMax));
-			dataStatic.rotationRate = rate;
+			dataStatic.rotationRate = rotationRate;
 			dataStatic.velocityAngle = angle;
-			//dataStatic.velocitySpeed = Rand.Range(50, 70) / 100f;
 			dataStatic.velocitySpeed = Rand.Range(0, 0.2f) + speed;
 			this.parent.Map.flecks.CreateFleck(dataStatic);
 		}
