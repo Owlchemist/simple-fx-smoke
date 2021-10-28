@@ -39,14 +39,14 @@ namespace Flecker
 			cachedParticleOffset = parent.DrawPos + offset;
 
 			//Add to registry
-			parent.Map.GetComponent<MapComponent_FleckerRegistry>().compCache.Add(this);
+			parent.Map.GetComponent<MapComponent_FleckManager>().compCache.Add(this);
 
 			CheckIfRoofed();
 		}
 
 		public override void PostDeSpawn(Map map)
 		{
-			map.GetComponent<MapComponent_FleckerRegistry>().compCache.Remove(this);
+			map.GetComponent<MapComponent_FleckManager>().compCache.Remove(this);
 		}
 
 		public bool InUse

@@ -3,30 +3,38 @@ using System.Collections.Generic;
 
 namespace Flecker
 {
-	public class MapComponent_FleckerRegistry : MapComponent
+	public class MapComponent_FleckManager : MapComponent
 	{
-        public List<CompFlecker> compCache; //Cache to avoid using laggy TryGetComponent. These two lists are generated in sync.
-        int ticker, tickerRoofCheck, tickerDirection;
+        public List<CompFlecker> compCache; //Cache to avoid using laggy TryGetComponent.
+        int ticker, tickerRoofCheck, tickerWindDirection, tickWindCheck;
         float windDirection, transitiveDirection;
 
         const float LowWind = 0.25f;
         const float HighWind = 0.75f;
-        const float DirectionSteps = 0.01f;
-        const float MaxAngle = 80f;
+        const float DirectionSteps = 0.25f;
+        const int MaxAngle = 70;
         const float IndoorSpeed = 0.5f;
         const float IndoorAngle = 35f;
-        const int DirectionWaitTime = 600;
+        const int DirectionWaitTime = 25;
+        const float epsilon = 0.02f;
 
-        public MapComponent_FleckerRegistry(Map map) : base(map)
+        public MapComponent_FleckManager(Map map) : base(map)
         {
             this.compCache = new List<CompFlecker>();
             transitiveDirection = windDirection = IndoorAngle;
         }
 
+        public override void ExposeData()
+		{
+			Scribe_Values.Look<float>(ref this.windDirection, "windDirection", 35f, false);
+            Scribe_Values.Look<float>(ref this.transitiveDirection, "transitiveDirection", 35f, false);
+            Scribe_Values.Look<int>(ref this.tickerWindDirection, "tickerDirection", -1, false);
+		}
+
         public override void MapComponentTick()
         {
             float currentSpeed = UnityEngine.Mathf.Clamp(map.windManager.WindSpeed, LowWind, HighWind);
-            updateWindDirection();
+            UpdateWindDirection();
 
             //The tick trigger rate varies depending on wind speed to avoid particle gaps
             if (++ticker > 35 / (currentSpeed + 0.5f))
@@ -92,27 +100,30 @@ namespace Flecker
         }
 
         // Moves the wind direction when low wind
-        private void updateWindDirection()
+        private void UpdateWindDirection()
         {
-            //Slowly move the direction towards the target angle
-            if(windDirection != transitiveDirection)
+            if (++tickWindCheck == 25)
             {
-                windDirection = windDirection > transitiveDirection ? windDirection -= DirectionSteps : windDirection += DirectionSteps;
-            }
+                tickWindCheck = 0;
+                //Slowly move the direction towards the target angle
+                if (windDirection != transitiveDirection)
+                {
+                    windDirection = windDirection > transitiveDirection ? windDirection -= DirectionSteps : windDirection += DirectionSteps;
+                }
 
-            //If the wind is high, set the timer and return
-            if(map.windManager.WindSpeed > LowWind)
-            {
-                tickerDirection = DirectionWaitTime;
-                return;
-            }
+                //If the wind is high, set the timer and return
+                if(map.windManager.WindSpeed > LowWind)
+                {
+                    tickerWindDirection = DirectionWaitTime;
+                    return;
+                }
 
-            //Change the target angle when it has been low wind for a while, once
-            //Angle can be negative as the fleckspawner clamps it within the circle
-            tickerDirection--;
-            if(tickerDirection == 0)
-            {
-                transitiveDirection = Rand.Range(-MaxAngle, MaxAngle);   
+                //Change the target angle when it has been low wind for a while, once
+                //Angle can be negative as the fleckspawner clamps it within the circle
+                if(--tickerWindDirection == 0)
+                {
+                    transitiveDirection = Rand.Range(-MaxAngle, MaxAngle);
+                }
             }
         }
     }
