@@ -1,6 +1,7 @@
 using RimWorld;
 using Verse;
 using UnityEngine;
+using static Flecker.ExtensionUtility;
 
 namespace Flecker
 {
@@ -38,10 +39,20 @@ namespace Flecker
             }
 			cachedParticleOffset = parent.DrawPos + offset;
 
+			//Cache map
+			cachedMap = this.parent.Map;
+
 			//Add to registry
-			parent.Map.GetComponent<MapComponent_FleckManager>().compCache.Add(this);
+			cachedMap.GetComponent<MapComponent_FleckManager>().compCache.Add(this);
 
 			CheckIfRoofed();
+
+			//Cache system
+			if (Props.idleAlt == null && Props.indoorAlt == null)
+			{
+				cachedMap.flecks.systems.TryGetValue(Props.fleckDef.fleckSystemClass, out fleckSystemCache);
+				cachedAltitude = Props.fleckDef.altitudeLayer.AltitudeFor(Props.fleckDef.altitudeLayerIncOffset);
+			}
 		}
 
 		public override void PostDeSpawn(Map map)
@@ -53,11 +64,11 @@ namespace Flecker
 		{
 			get
 			{
-				if (parent.Map == null)
+				if (cachedMap == null)
 				{
 					return false;
 				}
-				Pawn pawn = parent.Map.thingGrid.ThingAt<Pawn>(parent.InteractionCell);
+				Pawn pawn = cachedMap.thingGrid.ThingAt<Pawn>(parent.InteractionCell);
 				return pawn != null && !pawn.pather.Moving && pawn.CurJob != null && pawn.CurJob.targetA != null && pawn.CurJob.targetA.HasThing && pawn.CurJob.targetA.Thing == parent;
 			}
 		}
@@ -68,25 +79,35 @@ namespace Flecker
 			flickComp = parent.GetComp<CompFlickable>();
 		}
 
-		public void ThrowFleck(float angle, float rotationRate, float speed, FleckDef def)
+		public void ThrowFleck(float angle, float rotationRate, float speed, FleckDef fleckDef, float size)
 		{
-			FleckCreationData dataStatic = FleckMaker.GetDataStatic(cachedParticleOffset, parent.Map, def, Rand.Range(cachedParticleSizeMin, cachedParticleSizeMax));
+			FleckCreationData dataStatic = FleckMaker.GetDataStatic(cachedParticleOffset, cachedMap, fleckDef, size);
 			dataStatic.rotationRate = rotationRate;
 			dataStatic.velocityAngle = angle;
-			dataStatic.velocitySpeed = Rand.Range(0, 0.2f) + speed;
-			this.parent.Map.flecks.CreateFleck(dataStatic);
+			dataStatic.velocitySpeed = (fastRandom.Next(1,20) / 100f) + speed;
+
+			if (fleckSystemCache != null)
+			{
+				dataStatic.spawnPosition.y = cachedAltitude;
+				fleckSystemCache.CreateFleck(dataStatic);
+			}
+			else cachedMap.flecks.CreateFleck(dataStatic);
 		}
 
 		public void CheckIfRoofed()
 		{
-			isRoofed = parent.Map.roofGrid.Roofed(parent.Position);
+			isRoofed = cachedMap.roofGrid.Roofed(parent.Position);
 		}
 
 		public CompRefuelable fuelComp;
 		public CompFlickable flickComp;
 		public Vector3 cachedParticleOffset = Vector3.zero;
 		public bool isRoofed = false;
-		float cachedParticleSizeMin = 1f;
-		float cachedParticleSizeMax = 1f;
+		public float cachedParticleSizeMin = 1f;
+		public float cachedParticleSizeMax = 1f;
+		float cachedAltitude = 6f;
+		public Thing trueParent; //Only used by extensions
+		FleckSystem fleckSystemCache;
+		Map cachedMap;
 	}
 }
