@@ -28,7 +28,7 @@ namespace Flecker
 
 				ThingWithComps fleckerHolder = new ThingWithComps()
 				{
-					def = __instance.def,
+					def = ResourceBank.ThingDefOf.DummySmokeEmitter,
 					Position = __instance.Position,
 					mapIndexOrState = __instance.mapIndexOrState
 				};
@@ -74,6 +74,7 @@ namespace Flecker
 				if (usingExtensions && registry.TryGetValue(__instance, out CompFlecker comp))
 				{
 					comp.PostDeSpawn(__instance.Map);
+					comp.parent.Map?.listerThings.Add(comp.parent); //Add entity to the directory right before it's removed. This is only needed for autotesting.
 					comp.parent.DeSpawn();
 				}
 			}
