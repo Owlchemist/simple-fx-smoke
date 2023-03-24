@@ -1,66 +1,69 @@
 using Verse;
-using RimWorld;
 using System.Collections.Generic;
 
 namespace Flecker
 {
 	public class MapComponent_FleckManager : MapComponent
 	{
-        public List<CompFlecker> compCache; //Cache to avoid using laggy TryGetComponent.
-        int ticker, tickerRoofCheck, tickerWindDirection, tickWindCheck;
+        public List<CompFlecker> compCache;
+        int ticker = 35, tickerWindDirection;
         float windDirection, transitiveDirection;
 
-        const float LowWind = 0.25f;
-        const float HighWind = 0.75f;
-        const float DirectionSteps = 0.25f;
-        const int MaxAngle = 70;
-        const float IndoorSpeed = 0.5f;
-        const float IndoorAngle = 35f;
-        const int DirectionWaitTime = 25;
-        const float epsilon = 0.02f;
+        const float lowWind = 0.25f,
+            highWind = 0.75f,
+            directionSteps = 0.25f,
+            indoorSpeed = 0.5f,
+            indoorAngle = 35f,
+            epsilon = 0.02f;
+        const int maxAngle = 70,
+            directionWaitTime = 25;
+
         FastRandom fastRandom;
 
         public MapComponent_FleckManager(Map map) : base(map)
         {
             this.compCache = new List<CompFlecker>();
-            transitiveDirection = windDirection = IndoorAngle;
+            transitiveDirection = windDirection = indoorAngle;
             fastRandom = new FastRandom();
         }
 
         public override void ExposeData()
 		{
-			Scribe_Values.Look<float>(ref this.windDirection, "windDirection", 35f, false);
-            Scribe_Values.Look<float>(ref this.transitiveDirection, "transitiveDirection", 35f, false);
-            Scribe_Values.Look<int>(ref this.tickerWindDirection, "tickerDirection", -1, false);
+			Scribe_Values.Look(ref windDirection, "windDirection", 35f);
+            Scribe_Values.Look(ref transitiveDirection, "transitiveDirection", 35f);
+            Scribe_Values.Look(ref tickerWindDirection, "tickerDirection", -1);
 		}
 
         public override void MapComponentTick()
         {
-            float currentSpeed = UnityEngine.Mathf.Clamp(map.windManager.WindSpeed, LowWind, HighWind);
-            UpdateWindDirection();
+            var length = compCache.Count;
+            if (length == 0) return;
+            var gameTicks = Current.gameInt.tickManager.ticksGameInt;
+            UpdateWindDirection(gameTicks);
 
-            //The tick trigger rate varies depending on wind speed to avoid particle gaps
-            if (++ticker > 35f / (currentSpeed + 0.5f))
+            if (gameTicks % ticker == 0)
             {
+                float currentSpeed = UnityEngine.Mathf.Clamp(map.windManager.cachedWindSpeed, lowWind, highWind);
+                ticker = (int)(35f / (currentSpeed + 0.5f)); //The tick trigger rate varies depending on wind speed to avoid particle gaps
                 if (Find.CurrentMap != map) return;
-
-                //Catch length for optimization
-                int numberOfFleckers = compCache.Count;
 
                 //Recycled rands
                 float angleOffset = fastRandom.Next(-5, 5);
-                float rotationRate = fastRandom.Next(-30, 30);
+                var tmp = fastRandom.Next(-30, 30);
+                float rotationRate = tmp;
 
-                if (++tickerRoofCheck > 9) //Every 350 ticks
+                if (gameTicks % 350 == 0)
                 {
-                    compCache.ForEach(x => x.CheckIfRoofed());
-                    tickerRoofCheck = 0;
+                    for (int i = length; i-- > 0;) compCache[i].CheckIfRoofed();
                 }
 
-                for (int i = 0; i < numberOfFleckers; ++i)
+                //Prepare the camera driver
+                CellRect expandedCameraArea = ExtensionUtility.usingExtensions ? CameraDriver.lastViewRect.ExpandedBy(CameraDriver.lastViewRect.maxZ - CameraDriver.lastViewRect.minZ) : default;
+
+                for (int i = length; i-- > 0;)
                 {
                     CompFlecker comp = compCache[i];
-                    CompProperties_Smoker props = comp.Props;
+                    CompProperties_Smoker props = comp.cachedProp;
 
                     if
                     (
@@ -81,8 +84,8 @@ namespace Flecker
                     //Indoor
                     if (comp.isRoofed)
                     {
-                        currentSpeed = IndoorSpeed;
-                        angle = IndoorAngle + angleOffset;
+                        currentSpeed = indoorSpeed;
+                        angle = indoorAngle + angleOffset;
                         //Indoor smoke
                         if (props.indoorAlt != null) fleckDef = props.indoorAlt;
                     }
@@ -94,10 +97,13 @@ namespace Flecker
                     float speed = currentSpeed;
                     
                     //Check for special drivers
-                    float size = Rand.Range(comp.cachedParticleSizeMin, comp.cachedParticleSizeMax);
-                    if (props.driver == CompProperties_Smoker.Driver.Fire && comp.trueParent is Fire)
+                    float size = fastRandom.Next(comp.cachedParticleSizeMin, comp.cachedParticleSizeMax) / 100f;
+                    if (ExtensionUtility.usingExtensions && comp.fireParent != null)
                     {
-                        float fireSizeModifier = System.Math.Max(0.5f, ((Fire)comp.trueParent).fireSize / 1.25f);
+                        if (!expandedCameraArea.Contains(comp.parent.positionInt)) continue;
+
+                        float fireSizeModifier = comp.fireParent.fireSize / 1.25f;
+                        if (fireSizeModifier < 0.5f) fireSizeModifier = 0.5f;
                         size *= fireSizeModifier;
                         speed *= fireSizeModifier;
                     }
@@ -105,26 +111,24 @@ namespace Flecker
                     //Push results to comp
                     comp.ThrowFleck(angle, rotationRate, speed, fleckDef, size);
                 }
-                ticker = 0;
             }
         }
 
         // Moves the wind direction when low wind
-        void UpdateWindDirection()
+        void UpdateWindDirection(int gameTicks)
         {
-            if (++tickWindCheck == 25)
+            if (gameTicks % 25 == 0)
             {
-                tickWindCheck = 0;
                 //Slowly move the direction towards the target angle
                 if (windDirection != transitiveDirection)
                 {
-                    windDirection = windDirection > transitiveDirection ? windDirection -= DirectionSteps : windDirection += DirectionSteps;
+                    windDirection = windDirection > transitiveDirection ? windDirection -= directionSteps : windDirection += directionSteps;
                 }
 
                 //If the wind is high, set the timer and return
-                if(map.windManager.WindSpeed > LowWind)
+                if(map.windManager.cachedWindSpeed > lowWind)
                 {
-                    tickerWindDirection = DirectionWaitTime;
+                    tickerWindDirection = directionWaitTime;
                     return;
                 }
 
@@ -132,7 +136,7 @@ namespace Flecker
                 //Angle can be negative as the fleckspawner clamps it within the circle
                 if(--tickerWindDirection == 0)
                 {
-                    transitiveDirection = fastRandom.Next(-MaxAngle, MaxAngle);
+                    transitiveDirection = fastRandom.Next(-maxAngle, maxAngle);
                 }
             }
         }

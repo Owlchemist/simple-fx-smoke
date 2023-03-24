@@ -12,6 +12,7 @@
 						<value>
 							<li Class="Flecker.CompProperties_Smoker">
 								<particleSize>1.5</particleSize>
+								<indoorAlt>Owl_SmokeIndoors</indoorAlt>
 							</li>
 						</value>
 					</li>
@@ -20,6 +21,7 @@
 						<value>
 							<li Class="Flecker.CompProperties_Smoker">
 								<particleSize>1.5</particleSize>
+								<indoorAlt>Owl_SmokeIndoors</indoorAlt>
 							</li>
 						</value>
 					</li>
@@ -62,6 +64,7 @@
 						<value>
 							<li Class="Flecker.CompProperties_Smoker">
 								<particleSize>1.5</particleSize>
+								<indoorAlt>Owl_SmokeIndoors</indoorAlt>
 							</li>
 						</value>
 					</li>
@@ -92,7 +95,8 @@
 						<value>
 							<li Class="Flecker.CompProperties_Smoker">
 								<fleckDef>Owl_SmokeHeavy</fleckDef>
-								<particleOffset>(-0.5,0,-0.5)</particleOffset>						
+								<particleOffset>(-0.5,0,-0.5)</particleOffset>		
+								<indoorAlt>Owl_SmokeHeavyIndoors</indoorAlt>
 							</li>
 						</value>
 					</li>
@@ -100,7 +104,8 @@
 						<xpath>/Defs/ThingDef[defName="VFE_PortableChemfuelPoweredGenerator"]/comps</xpath>
 						<value>
 							<li Class="Flecker.CompProperties_Smoker">
-								<particleOffset>(-0.5,0,-0.5)</particleOffset>						
+								<particleOffset>(-0.5,0,-0.5)</particleOffset>
+								<indoorAlt>Owl_SmokeIndoors</indoorAlt>
 							</li>
 						</value>
 					</li>
@@ -109,6 +114,7 @@
 						<value>
 							<li Class="Flecker.CompProperties_Smoker">
 								<particleOffset>(-0.5,0,-0.5)</particleOffset>
+								<indoorAlt>Owl_SmokeIndoors</indoorAlt>
 							</li>
 						</value>
 					</li>
@@ -117,7 +123,8 @@
 						<value>
 							<li Class="Flecker.CompProperties_Smoker">
 								<fleckDef>Owl_SmokeHeavy</fleckDef>
-								<particleOffset>(-0.5,0,-0.5)</particleOffset>						
+								<particleOffset>(-0.5,0,-0.5)</particleOffset>
+								<indoorAlt>Owl_SmokeHeavyIndoors</indoorAlt>
 							</li>
 						</value>
 					</li>
@@ -125,7 +132,8 @@
 						<xpath>/Defs/ThingDef[defName="VPE_NuclearGenerator"]/comps</xpath>
 						<value>
 							<li Class="Flecker.CompProperties_Smoker">
-								<particleOffset>(-0.5,0,-0.5)</particleOffset>						
+								<particleOffset>(-0.5,0,-0.5)</particleOffset>
+								<indoorAlt>Owl_SmokeIndoors</indoorAlt>
 							</li>
 						</value>
 					</li>
@@ -141,6 +149,7 @@
 						<value>
 							<li Class="Flecker.CompProperties_Smoker">
 								<billsOnly>true</billsOnly>
+								<indoorAlt>Owl_SmokeIndoors</indoorAlt>
 							</li>
 						</value>
 					</li>

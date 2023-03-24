@@ -37,6 +37,16 @@
 		<fadeOutTime>1.25</fadeOutTime>
 	</FleckDef>
 	
+	<FleckDef ParentName="SmokerBase">
+		<defName>Owl_SmokeHeavyIndoors</defName>
+		<graphicData>
+			<texPath>Things/Mote/Heavy</texPath>
+		</graphicData>
+		<fadeInTime>0.50</fadeInTime>
+		<solidTime>1.5</solidTime>
+		<fadeOutTime>1.25</fadeOutTime>
+	</FleckDef>
+	
 	<ThingDef>
 		<defName>DummySmokeEmitter</defName>
 		<label>generic</label>

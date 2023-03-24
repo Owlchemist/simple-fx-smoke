@@ -7,40 +7,49 @@ namespace Flecker
 {
 	public class CompFlecker : ThingComp
 	{
-
-		public CompProperties_Smoker Props
-		{
-			get
-			{
-				return (CompProperties_Smoker)this.props;
-			}
-		}
+		public CompProperties_Smoker cachedProp;
+		public CompRefuelable fuelComp;
+		public CompFlickable flickComp;
+		public Vector3 cachedParticleOffset = Vector3.zero;
+		public bool isRoofed = false;
+		public int cachedParticleSizeMin = 1;
+		public int cachedParticleSizeMax = 1;
+		float cachedAltitude = 6f;
+		public Thing trueParent; //Only used by extensions
+		public Fire fireParent;
+		FleckSystem fleckSystemCache;
+		Map cachedMap;
+		int interactionCell;
 
 		public override void PostSpawnSetup(bool respawningAfterLoad)
 		{
+			cachedProp = (CompProperties_Smoker)this.props;
 			fuelComp = parent.TryGetComp<CompRefuelable>();
-			cachedParticleSizeMin = 1.5f * (parent.RotatedSize.Magnitude / 4f * Props.particleSize);
-			cachedParticleSizeMax = 2.5f * (parent.RotatedSize.Magnitude / 4f * Props.particleSize);
-			var offset = Props.particleOffset;
+			cachedParticleSizeMin = (int)(1.5f * (parent.RotatedSize.Magnitude / 4f * cachedProp.particleSize) * 100);
+			cachedParticleSizeMax = (int)(2.5f * (parent.RotatedSize.Magnitude / 4f * cachedProp.particleSize) * 100);
+			var offset = cachedProp.particleOffset;
             switch (parent.Rotation.AsInt)
             {
                 case 0:
-                    offset += Props.particleOffsetNorth;
+                    offset += cachedProp.particleOffsetNorth;
                     break;
                 case 1:
-                    offset += Props.particleOffsetEast;
+                    offset += cachedProp.particleOffsetEast;
                     break;
                 case 2:
-                    offset += Props.particleOffsetSouth;
+                    offset += cachedProp.particleOffsetSouth;
                     break;
                 case 3:
-                    offset += Props.particleOffsetWest;
+                    offset += cachedProp.particleOffsetWest;
                     break;
             }
 			cachedParticleOffset = parent.DrawPos + offset;
 
 			//Cache map
 			cachedMap = this.parent.Map;
+			if (cachedMap == null) return; //Stop, don't add to registry.
+
+			interactionCell = cachedMap.cellIndices.CellToIndex(parent.InteractionCell);
 
 			//Add to registry
 			cachedMap.GetComponent<MapComponent_FleckManager>().compCache.Add(this);
@@ -48,10 +57,10 @@ namespace Flecker
 			CheckIfRoofed();
 
 			//Cache system
-			if (Props.idleAlt == null && Props.indoorAlt == null)
+			if (cachedProp.idleAlt == null && cachedProp.indoorAlt == null)
 			{
-				cachedMap.flecks.systems.TryGetValue(Props.fleckDef.fleckSystemClass, out fleckSystemCache);
-				cachedAltitude = Props.fleckDef.altitudeLayer.AltitudeFor(Props.fleckDef.altitudeLayerIncOffset);
+				cachedMap.flecks.systems.TryGetValue(cachedProp.fleckDef.fleckSystemClass, out fleckSystemCache);
+				cachedAltitude = cachedProp.fleckDef.altitudeLayer.AltitudeFor(cachedProp.fleckDef.altitudeLayerIncOffset);
 			}
 		}
 
@@ -64,12 +73,16 @@ namespace Flecker
 		{
 			get
 			{
-				if (cachedMap == null)
+				var things = cachedMap.thingGrid.ThingsListAtFast(interactionCell);
+				for (int i = things.Count; i-- > 0;)
 				{
-					return false;
+					if (things[i] is Pawn pawn)
+					{
+						var job = pawn.CurJob;
+						return !pawn.pather.Moving && job != null && job.targetA != null && job.targetA.HasThing && job.targetA.Thing == parent;
+					}
 				}
-				Pawn pawn = cachedMap.thingGrid.ThingAt<Pawn>(parent.InteractionCell);
-				return pawn != null && !pawn.pather.Moving && pawn.CurJob != null && pawn.CurJob.targetA != null && pawn.CurJob.targetA.HasThing && pawn.CurJob.targetA.Thing == parent;
+				return false;
 			}
 		}
 
@@ -98,16 +111,5 @@ namespace Flecker
 		{
 			isRoofed = cachedMap.roofGrid.Roofed(parent.Position);
 		}
-
-		public CompRefuelable fuelComp;
-		public CompFlickable flickComp;
-		public Vector3 cachedParticleOffset = Vector3.zero;
-		public bool isRoofed = false;
-		public float cachedParticleSizeMin = 1f;
-		public float cachedParticleSizeMax = 1f;
-		float cachedAltitude = 6f;
-		public Thing trueParent; //Only used by extensions
-		FleckSystem fleckSystemCache;
-		Map cachedMap;
 	}
 }
