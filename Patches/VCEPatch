@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>						
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Vanilla Chemfuel Expanded</li>
+        </mods>
+        <match Class="PatchOperationSequence">
+            <operations>
+                <li Class="PatchOperationAdd">
+                    <xpath>Defs/ThingDef[defName="PS_DeepchemRefinery"]/comps</xpath> 
+                    <value>
+                        <li Class="Flecker.CompProperties_Smoker">
+                            <fleckDef>Owl_SmokeHeavy</fleckDef>
+                            <particleOffset>(0,0,1.5)</particleOffset>
+                            <indoorAlt>Owl_SmokeHeavyIndoors</indoorAlt>
+                        </li>
+                    </value>
+                </li>		
+            </operations>
+        </match>
+    </Operation>
+
+</Patch>
